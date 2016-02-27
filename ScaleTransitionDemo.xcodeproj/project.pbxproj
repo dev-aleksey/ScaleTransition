@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BD4BC39040E4A5E15DBB4D7 /* libPods-ScaleTransitionDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE06110BD8088554D80C178F /* libPods-ScaleTransitionDemo.a */; };
 		844EAD691C75F71F001E638A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844EAD681C75F71F001E638A /* AppDelegate.swift */; };
 		844EAD6B1C75F71F001E638A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844EAD6A1C75F71F001E638A /* ViewController.swift */; };
 		844EAD6E1C75F71F001E638A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844EAD6C1C75F71F001E638A /* Main.storyboard */; };
@@ -20,7 +21,6 @@
 		84766E871C7714A90039BF66 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84766E861C7714A90039BF66 /* DetailViewController.swift */; };
 		84766E881C7714A90039BF66 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84766E861C7714A90039BF66 /* DetailViewController.swift */; };
 		84766E891C7714A90039BF66 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84766E861C7714A90039BF66 /* DetailViewController.swift */; };
-		E90318AF98179C275C9D75A9 /* Pods_ScaleTransitionDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F702140FC55B25DEF2DDA485 /* Pods_ScaleTransitionDemo.framework */; };
 		FA05A3C21C7B9CC400B6A90E /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA05A3C11C7B9CC400B6A90E /* Storyboards.swift */; };
 		FA05A3C31C7B9CC400B6A90E /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA05A3C11C7B9CC400B6A90E /* Storyboards.swift */; };
 		FA05A3C41C7B9CC400B6A90E /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA05A3C11C7B9CC400B6A90E /* Storyboards.swift */; };
@@ -68,13 +68,14 @@
 		844EAD8A1C75F720001E638A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		844EAD971C75FEB5001E638A /* ScaleTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaleTransition.swift; sourceTree = "<group>"; };
 		84766E861C7714A90039BF66 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		BE06110BD8088554D80C178F /* libPods-ScaleTransitionDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScaleTransitionDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C918AB55C5C711779AA38C14 /* Pods-ScaleTransitionDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScaleTransitionDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScaleTransitionDemo/Pods-ScaleTransitionDemo.release.xcconfig"; sourceTree = "<group>"; };
 		CDCFE3846A7F3B724F31C23C /* Pods-ScaleTransitionDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScaleTransitionDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScaleTransitionDemo/Pods-ScaleTransitionDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		F702140FC55B25DEF2DDA485 /* Pods_ScaleTransitionDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScaleTransitionDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA05A3C11C7B9CC400B6A90E /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		FA4A2F201C799BA400A169CF /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		FA4A2F211C799BA400A169CF /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		FA4A2F2D1C79BB4300A169CF /* LoginAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginAppearance.swift; sourceTree = "<group>"; };
+		FAB476491C823CE3003F71A9 /* ScaleTransitionDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ScaleTransitionDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E90318AF98179C275C9D75A9 /* Pods_ScaleTransitionDemo.framework in Frameworks */,
+				3BD4BC39040E4A5E15DBB4D7 /* libPods-ScaleTransitionDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +107,7 @@
 		2BBC27E80670C3564E3DAFB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F702140FC55B25DEF2DDA485 /* Pods_ScaleTransitionDemo.framework */,
+				BE06110BD8088554D80C178F /* libPods-ScaleTransitionDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -129,6 +130,7 @@
 				844EAD661C75F71F001E638A /* Products */,
 				65840ACFBA8B4DBA6C30748D /* Pods */,
 				2BBC27E80670C3564E3DAFB6 /* Frameworks */,
+				FAB476491C823CE3003F71A9 /* ScaleTransitionDemo-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -548,12 +550,15 @@
 			baseConfigurationReference = CDCFE3846A7F3B724F31C23C /* Pods-ScaleTransitionDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ScaleTransitionDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramotion.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ScaleTransitionDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -562,12 +567,14 @@
 			baseConfigurationReference = C918AB55C5C711779AA38C14 /* Pods-ScaleTransitionDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ScaleTransitionDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ramotion.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ScaleTransitionDemo-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -25,7 +25,6 @@
 
 
 import UIKit
-import pop
 
 class DetailViewController: UIViewController {
 

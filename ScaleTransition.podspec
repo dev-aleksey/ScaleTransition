@@ -8,7 +8,6 @@ Pod::Spec.new do |s|
   s.homepage     = 'https://github.com/dev-aleksey/ScaleTransition'
 
   s.author       = { 'Alex' => 'dev.aleksey@yandex.ru' }
-  s.platform     = :ios
   s.platform     = :ios, '8.0'
   s.source       = { :git => 'https://github.com/dev-aleksey/ScaleTransition.git', :tag => s.version.to_s }
 
