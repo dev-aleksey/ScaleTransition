@@ -11,7 +11,12 @@ Custom modal transition animation
 
 ## Installation
 
-Just add the ScaleTransition.swift file to your project.
+Just add the ``` ScaleTransition.swift ``` file to your project.
+
+or use [CocoaPods](https://cocoapods.org) with Podfile:
+``` ruby
+pod 'ScaleTransition', '~> 1.0.2'
+```
 
 ## Usage
 
