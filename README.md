@@ -54,7 +54,7 @@ extension ViewController: UIViewControllerTransitioningDelegate {
 
 ## Licence
 
-Folding cell is released under the MIT license.
+ScaleTransition is released under the MIT license.
 See [LICENSE](./LICENSE) for details.
 
 ## About
