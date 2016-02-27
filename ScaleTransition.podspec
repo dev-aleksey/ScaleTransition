@@ -13,7 +13,4 @@ Pod::Spec.new do |s|
 
   s.source_files  = 'scaletransitiondemo/ScaleTransition/*.swift'
   s.requires_arc = true
-
-  s.dependency 'pop'
-
 end
