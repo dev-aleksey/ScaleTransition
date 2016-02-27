@@ -46,8 +46,6 @@ class ViewController: UIViewController {
     
     let detail: DetailViewController = storyboard.instantiateViewController()
     
-    
-    
     detail.transitioningDelegate = self
     detail.modalPresentationStyle = .Custom
     
