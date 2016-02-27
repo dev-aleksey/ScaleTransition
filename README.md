@@ -25,7 +25,7 @@ let detail: DetailViewController = storyboard.instantiateViewController()
 detail.transitioningDelegate = self
 detail.modalPresentationStyle = .Custom
 
-// presentViewController    
+// present viewController    
 navigationController?.presentViewController(detail, animated: true, completion: nil)
 ```
 
