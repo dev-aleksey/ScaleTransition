@@ -1,5 +1,7 @@
 # ScaleTransition
 
+Custom modal transition animation
+
 ![Animation](Source/ScaleTransition.gif)
 
 ## Requirements
