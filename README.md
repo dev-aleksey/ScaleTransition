@@ -53,3 +53,5 @@ Folding cell is released under the MIT license.
 See [LICENSE](./LICENSE) for details.
 
 ## About
+
+If you have any questions, you can write me dev.aleksey@yandex.ru
