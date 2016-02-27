@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
   s.name         = 'ScaleTransition'
   s.version      = '1.0.0'
-  s.summary      = 'Custom modal transition animation.''
+  s.summary      = 'Custom modal transition animation.'
   s.license      = 'MIT'
   s.homepage     = 'https://github.com/dev-aleksey/ScaleTransition'
 
