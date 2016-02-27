@@ -25,7 +25,6 @@
 
 import Foundation
 import UIKit
-//import pop
 
 // MARK: ScaleShowTransition
 
@@ -63,20 +62,17 @@ extension ScaleShowTransition: UIViewControllerAnimatedTransitioning {
     let blurView = createBlurView(fromView.frame)
     containerVeiw.addSubview(blurView)
     let show = alphaAnimation(0, toValue: 1, duration: duration / 2.0)
-    blurView.pop_addAnimation(show, forKey: nil)
+    blurView.layer.addAnimation(show, forKey: nil)
     
     toView.center = containerVeiw.center
-    toView.alpha = 0
-    toView.pop_addAnimation(show, forKey: nil)
+    toView.layer.addAnimation(show, forKey: nil)
     containerVeiw.addSubview(toView)
   
       
     // scale
-    let scale = scaleAnimation(1, toValue: scaleValue, duration: duration / 2.0) {
-      animation, succes in
-      transitionContext.completeTransition(true)
-    }
-    fromView.layer.pop_addAnimation(scale, forKey: nil)
+    let scale = scaleAnimation(1, toValue: scaleValue, duration: duration / 2.0)
+    fromView.layer.addAnimation(scale, forKey: nil)
+    transitionContext.completeTransition(true)
   }
 }
 
@@ -89,7 +85,7 @@ extension ScaleShowTransition {
     visualEffectView.frame = frame
     view.addSubview(visualEffectView)
     view.accessibilityLabel = "blurView" // create constants enum
-    view.alpha = 0
+//    view.alpha = 0
     return view
   }
 }
@@ -119,7 +115,8 @@ extension ScaleHideTransition: UIViewControllerAnimatedTransitioning {
       fatalError()
     }
     let hide = alphaAnimation(1, toValue: 0, duration: duration / 2.0)
-    fromView.pop_addAnimation(hide, forKey: nil)
+    fromView.alpha = 0
+    fromView.layer.addAnimation(hide, forKey: nil)
     
     guard let toView = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)?.view else {
       fatalError()
@@ -128,54 +125,47 @@ extension ScaleHideTransition: UIViewControllerAnimatedTransitioning {
     toView.userInteractionEnabled = true
     
     // scale animation
-    let scale = scaleAnimation(scaleValue, toValue: 1, duration: duration / 2.0) {
-      animation, succes in
-      transitionContext.completeTransition(true)
-    }
-    toView.layer.pop_addAnimation(scale, forKey: nil)
+    let scale = scaleAnimation(scaleValue, toValue: 1, duration: duration / 2.0)
+    toView.layer.addAnimation(scale, forKey: nil)
 
     guard let containerVeiw = transitionContext.containerView() else { fatalError() }
     let blurView = containerVeiw.subviews.filter{$0.accessibilityLabel == "blurView"}.first
+    blurView?.alpha = 0
+    blurView?.layer.addAnimation(hide, forKey: nil)
     
-    blurView?.pop_addAnimation(hide, forKey: nil)
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+        transitionContext.completeTransition(true)
+    }
   }
 }
-
 
 // MARK: animations
 
 protocol Animations {
-  func scaleAnimation(fromValue: Double,
-                      toValue: Double,
-                      duration: Double,
-                      completion: ((POPAnimation!, Bool) -> Void)?) -> POPBasicAnimation
+  func scaleAnimation(fromValue: Double, toValue: Double, duration: Double) -> CABasicAnimation
   
-  func alphaAnimation(fromValue: Double, toValue: Double, duration: Double) -> POPBasicAnimation
+  func alphaAnimation(fromValue: Double, toValue: Double, duration: Double) -> CABasicAnimation
 }
 
 extension Animations {
   
-  func scaleAnimation(fromValue: Double,
-                      toValue: Double,
-                      duration: Double,
-                      completion: ((POPAnimation!, Bool) -> Void)?) -> POPBasicAnimation {
-
-      return Init(POPBasicAnimation(propertyNamed: kPOPLayerScaleXY)) {
-        $0.fromValue = NSValue(CGPoint: CGPoint(x: fromValue, y: fromValue))
-        $0.toValue   = NSValue(CGPoint: CGPoint(x: toValue, y: toValue))
-        $0.duration  = duration
-        $0.completionBlock = completion
-      }
-  }
-  
-  func alphaAnimation(fromValue: Double, toValue: Double, duration: Double) -> POPBasicAnimation {
-    return Init(POPBasicAnimation(propertyNamed: kPOPViewAlpha)) {
-      $0.fromValue = NSValue(CGPoint: CGPoint(x: fromValue, y: fromValue))
-      $0.toValue   = NSValue(CGPoint: CGPoint(x: toValue, y: toValue))
-      $0.duration  = duration
+    func scaleAnimation(fromValue: Double, toValue: Double, duration: Double) -> CABasicAnimation {
+        return Init(CABasicAnimation(keyPath: "transform.scale")) {
+            $0.fromValue = (fromValue)
+            $0.toValue   = (toValue)
+            $0.duration  = duration
+            $0.fillMode  = kCAFillModeForwards
+            $0.removedOnCompletion = false;
+        }
     }
-  }
-  
+
+    func alphaAnimation(fromValue: Double, toValue: Double, duration: Double) -> CABasicAnimation {
+        return Init(CABasicAnimation(keyPath: "opacity")) {
+            $0.fromValue = (fromValue)
+            $0.toValue   = (toValue)
+            $0.duration  = duration
+        }
+    }
 }
 
 
