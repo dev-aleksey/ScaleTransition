@@ -15,7 +15,7 @@ Just add the ``` ScaleTransition.swift ``` file to your project.
 
 or use [CocoaPods](https://cocoapods.org) with Podfile:
 ``` ruby
-pod 'ScaleTransition', '~> 1.0.2'
+pod 'ScaleTransition', '~> 1.0.3'
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ pod 'ScaleTransition', '~> 1.0.2'
 // create viewcontroller
 let storyboard = UIStoryboard(storyboard: .Main)
 let detail: DetailViewController = storyboard.instantiateViewController()
-    
+
 // configure transition    
 detail.transitioningDelegate = self
 detail.modalPresentationStyle = .Custom
@@ -37,15 +37,15 @@ navigationController?.presentViewController(detail, animated: true, completion: 
 ``` swift
 // MARK: transition delegate
 extension ViewController: UIViewControllerTransitioningDelegate {
-  
+
   func animationControllerForPresentedController(presented: UIViewController,
                            presentingController presenting: UIViewController,
                                    sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-                                    
+
     return ScaleShowTransition(duration: 0.5, scale: 0.9)
   }
 
-  
+
   func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return ScaleHideTransition(duration: 0.5, scale: 0.9)
   }
