@@ -33,7 +33,7 @@ public class ScaleShowTransition: NSObject, Animations {
   let duration:   Double
   let scaleValue: Double
     
-  init (duration: Double, scale: Double) {
+  public init (duration: Double, scale: Double) {
     self.duration   = duration
     self.scaleValue = scale
   }
@@ -97,7 +97,7 @@ public class ScaleHideTransition: NSObject, Animations {
   let duration  : Double
   let scaleValue: Double
   
-  init (duration: Double, scale: Double) {
+  public init (duration: Double, scale: Double) {
     self.duration   = duration
     self.scaleValue = scale
   }
