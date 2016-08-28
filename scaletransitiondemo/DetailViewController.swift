@@ -33,8 +33,8 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController {
   
-  @IBAction func closeHandler(sender: AnyObject) {
+  @IBAction func closeHandler(_ sender: AnyObject) {
     
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
   }
 }

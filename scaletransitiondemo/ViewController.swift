@@ -40,16 +40,16 @@ class ViewController: UIViewController {
   
   // MARK: actions
   
-  @IBAction func buttonHandler(sender: AnyObject) {
+  @IBAction func buttonHandler(_ sender: AnyObject) {
 
     let storyboard = UIStoryboard(storyboard: .Main)
     
     let detail: DetailViewController = storyboard.instantiateViewController()
     
     detail.transitioningDelegate = self
-    detail.modalPresentationStyle = .Custom
+    detail.modalPresentationStyle = .custom
     
-    navigationController?.presentViewController(detail, animated: true, completion: nil)
+    navigationController?.present(detail, animated: true, completion: nil)
     
   }
 }
@@ -58,15 +58,12 @@ class ViewController: UIViewController {
 
 extension ViewController: UIViewControllerTransitioningDelegate {
   
-  func animationControllerForPresentedController(presented: UIViewController,
-                           presentingController presenting: UIViewController,
-                                   sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-                                    
+  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return ScaleShowTransition(duration: 0.5, scale: 0.9)
   }
 
-  
-  func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return ScaleHideTransition(duration: 0.5, scale: 0.9)
   }
+  
 }

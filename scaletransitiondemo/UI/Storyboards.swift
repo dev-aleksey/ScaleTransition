@@ -37,7 +37,7 @@ protocol StoryboardIdentifiable {
 
 extension StoryboardIdentifiable where Self: UIViewController {
   static var storyboardIdentifier: String {
-    return String(self)
+    return String(describing: self)
   }
 }
 
@@ -49,14 +49,14 @@ extension UIStoryboard {
   
   /// Convenience Initializers
   
-  convenience init(storyboard: Storyboard, bundle: NSBundle? = nil) {
+  convenience init(storyboard: Storyboard, bundle: Bundle? = nil) {
     self.init(name: storyboard.rawValue, bundle: bundle)
   }
   
   
   /// Class Functions
   
-  class func storyboard(storyboard: Storyboard, bundle: NSBundle? = nil) -> UIStoryboard {
+  class func storyboard(storyboard: Storyboard, bundle: Bundle? = nil) -> UIStoryboard {
     return UIStoryboard(name: storyboard.rawValue, bundle: bundle)
   }
   
@@ -64,8 +64,8 @@ extension UIStoryboard {
   /// View Controller Instantiation from Generics
   /// Old Way:
   
-  func instantiateViewController<T: UIViewController where T: StoryboardIdentifiable>(_: T.Type) -> T {
-    guard let viewController = self.instantiateViewControllerWithIdentifier(T.storyboardIdentifier) as? T else {
+  func instantiateViewController<T: UIViewController>(_: T.Type) -> T where T: StoryboardIdentifiable {
+    guard let viewController = self.instantiateViewController(withIdentifier: T.storyboardIdentifier) as? T else {
       fatalError("Couldn't instantiate view controller with identifier \(T.storyboardIdentifier) ")
     }
     
@@ -73,8 +73,8 @@ extension UIStoryboard {
   }
   
   /// New Way
-  func instantiateViewController<T: UIViewController where T: StoryboardIdentifiable>() -> T {
-    guard let viewController = self.instantiateViewControllerWithIdentifier(T.storyboardIdentifier) as? T else {
+  func instantiateViewController<T: UIViewController>() -> T where T: StoryboardIdentifiable {
+    guard let viewController = self.instantiateViewController(withIdentifier: T.storyboardIdentifier) as? T else {
       fatalError("Couldn't instantiate view controller with identifier \(T.storyboardIdentifier) ")
     }
     
