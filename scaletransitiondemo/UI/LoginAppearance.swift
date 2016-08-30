@@ -37,7 +37,7 @@ extension PlaceholderColor where Self: UITextField {
   func placeholderColor(color: UIColor) {
     if let placeholder = placeholder {
       attributedPlaceholder = NSAttributedString(string: placeholder,
-        attributes:[NSForegroundColorAttributeName : UIColor.whiteColor()])
+        attributes:[NSForegroundColorAttributeName : UIColor.white])
     }
   }
 }
@@ -46,7 +46,7 @@ class WhiteTextField: UITextField, PlaceholderColor {
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    placeholderColor(.whiteColor())
+    placeholderColor(color: .white)
   }
 }
 
@@ -56,7 +56,7 @@ protocol Bordered {
 
 extension Bordered where Self: UIView {
   func borderWidth(width: Float, color: UIColor) {
-    layer.borderColor = color.CGColor
+    layer.borderColor = color.cgColor
     layer.borderWidth = CGFloat(width)
   }
 }
@@ -64,7 +64,7 @@ extension Bordered where Self: UIView {
 class CountinueButton: UIButton, Bordered {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    borderWidth(2, color: UIColor(colorLiteralRed: 255, green: 255, blue: 255, alpha: 0.3))
-    backgroundColor = .clearColor()
+    borderWidth(width: 2, color: UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.3))
+    backgroundColor = .clear
   }
 }

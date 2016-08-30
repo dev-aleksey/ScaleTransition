@@ -41,51 +41,65 @@ public class ScaleShowTransition: NSObject, Animations {
 
 extension ScaleShowTransition: UIViewControllerAnimatedTransitioning {
   
-  public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+  public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return duration
   }
 
-  public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+  public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
-    guard let fromView = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)?.view else {
+    guard let fromView = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)?.view else {
       fatalError()
     }
-    fromView.tintAdjustmentMode     = .Dimmed
-    fromView.userInteractionEnabled = false
+    fromView.tintAdjustmentMode     = .dimmed
+    fromView.isUserInteractionEnabled = false
     
-    guard let toView = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)?.view else {
+    guard let toView = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)?.view else {
       fatalError()
     }
     
-    guard let containerVeiw = transitionContext.containerView() else { fatalError() }
+    let containerVeiw = transitionContext.containerView
     
-    let blurView = createBlurView(fromView.frame)
+    let blurView = createBlurView(sourceView: fromView)
     containerVeiw.addSubview(blurView)
-    let show = alphaAnimation(0, toValue: 1, duration: duration / 2.0)
-    blurView.layer.addAnimation(show, forKey: nil)
+    let show = alphaAnimation(fromValue: 0, toValue: 1, duration: duration / 2.0)
+    blurView.layer.add(show, forKey: nil)
     
     toView.center = containerVeiw.center
-    toView.layer.addAnimation(show, forKey: nil)
+    toView.layer.add(show, forKey: nil)
     containerVeiw.addSubview(toView)
   
       
     // scale
-    let scale = scaleAnimation(1, toValue: scaleValue, duration: duration / 2.0)
-    fromView.layer.addAnimation(scale, forKey: nil)
+    let scale = scaleAnimation(fromValue: 1, toValue: scaleValue, duration: duration / 2.0)
+    fromView.layer.add(scale, forKey: nil)
     transitionContext.completeTransition(true)
   }
 }
 
 extension ScaleShowTransition {
 
-  private func createBlurView(frame: CGRect) -> UIView {
+  fileprivate func createBlurView(sourceView: UIView) -> UIView {
+    
+    let blurView = createBlurView(frame: sourceView.bounds)
+    sourceView.addSubview(blurView)
+    defer {
+      blurView.removeFromSuperview()
+    }
+    guard let snapShot = sourceView.snapshotView(afterScreenUpdates: true) else {
+      return blurView
+    }
+    snapShot.accessibilityLabel = "blurView"
+
+    return snapShot
+    
+  }
+  
+  fileprivate func createBlurView(frame: CGRect) -> UIView {
     let view = UIView(frame: frame)
     
-    let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+    let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     visualEffectView.frame = frame
     view.addSubview(visualEffectView)
-    view.accessibilityLabel = "blurView" // create constants enum
-//    view.alpha = 0
     return view
   }
 }
@@ -105,37 +119,37 @@ public class ScaleHideTransition: NSObject, Animations {
 
 extension ScaleHideTransition: UIViewControllerAnimatedTransitioning {
   
-  public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+  public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return duration
   }
   
-  public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+  public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
     
-    guard let fromView = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)?.view else {
+    guard let fromView = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)?.view else {
       fatalError()
     }
-    let hide = alphaAnimation(1, toValue: 0, duration: duration / 2.0)
+    let hide = alphaAnimation(fromValue: 1, toValue: 0, duration: duration / 2.0)
     fromView.alpha = 0
-    fromView.layer.addAnimation(hide, forKey: nil)
+    fromView.layer.add(hide, forKey: nil)
     
-    guard let toView = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)?.view else {
+    guard let toView = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)?.view else {
       fatalError()
     }
-    toView.tintAdjustmentMode     = .Normal
-    toView.userInteractionEnabled = true
+    toView.tintAdjustmentMode     = .normal
+    toView.isUserInteractionEnabled = true
     
     // scale animation
-    let scale = scaleAnimation(scaleValue, toValue: 1, duration: duration / 2.0)
-    toView.layer.addAnimation(scale, forKey: nil)
+    let scale = scaleAnimation(fromValue: scaleValue, toValue: 1, duration: duration / 2.0)
+    toView.layer.add(scale, forKey: nil)
 
-    guard let containerVeiw = transitionContext.containerView() else { fatalError() }
+    let containerVeiw = transitionContext.containerView
     let blurView = containerVeiw.subviews.filter{$0.accessibilityLabel == "blurView"}.first
     blurView?.alpha = 0
-    blurView?.layer.addAnimation(hide, forKey: nil)
+    blurView?.layer.add(hide, forKey: nil)
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-        transitionContext.completeTransition(true)
-    }
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(duration * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
+    transitionContext.completeTransition(true)
+    }    
   }
 }
 
@@ -150,17 +164,17 @@ protocol Animations {
 extension Animations {
   
     func scaleAnimation(fromValue: Double, toValue: Double, duration: Double) -> CABasicAnimation {
-        return Init(CABasicAnimation(keyPath: "transform.scale")) {
+        return Init(value: CABasicAnimation(keyPath: "transform.scale")) {
             $0.fromValue = (fromValue)
             $0.toValue   = (toValue)
             $0.duration  = duration
             $0.fillMode  = kCAFillModeForwards
-            $0.removedOnCompletion = false;
+            $0.isRemovedOnCompletion = false;
         }
     }
 
     func alphaAnimation(fromValue: Double, toValue: Double, duration: Double) -> CABasicAnimation {
-        return Init(CABasicAnimation(keyPath: "opacity")) {
+        return Init(value: CABasicAnimation(keyPath: "opacity")) {
             $0.fromValue = (fromValue)
             $0.toValue   = (toValue)
             $0.duration  = duration
@@ -171,8 +185,7 @@ extension Animations {
 
 // MARK: helpesrs
 
-@warn_unused_result
-private func Init<Type>(value : Type, @noescape block: (object: Type) -> Void) -> Type {
-  block(object: value)
+private func Init<Type>(value : Type, block: (_ object: Type) -> Void) -> Type {
+  block(value)
   return value
 }
